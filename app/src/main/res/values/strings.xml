@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">單字王</string>
+    <string name="apple_en">Apple</string>
+    <string name="apple_cz">蘋果</string>
+    <string name="translate_txt">翻譯</string>
+    <string name="all">所有</string>
+    <string name="studying">學習中</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
