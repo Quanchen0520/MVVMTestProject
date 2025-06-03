@@ -1,5 +1,8 @@
 package com.example.mvvm_testproject.Model
-//
-//data class SingleWordList(
-//
-//)
+
+data class SingleWordList(
+    val english: String,
+    val chinese: String,
+    var inTranslated: Boolean = false,
+    var isPlaying: Boolean = false
+)
