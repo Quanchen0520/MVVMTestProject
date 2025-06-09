@@ -4,5 +4,6 @@ data class SingleWordList(
     val english: String,
     val chinese: String,
     var isTranslated: Boolean = false,
-    var isPlaying: Boolean = false
+    var isPlaying: Boolean = false,
+    var isStudying: Boolean = false
 )

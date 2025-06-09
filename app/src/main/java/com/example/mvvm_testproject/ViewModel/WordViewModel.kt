@@ -29,4 +29,10 @@ class WordViewModel : ViewModel() {
             this[index] = this[index].copy(isPlaying = !this[index].isPlaying)
         }
     }
+
+    fun toggleStudying(index: Int) {
+        _words.value = _words.value?.toMutableList()?.apply {
+            this[index] = this[index].copy(isStudying = !this[index].isStudying)
+        }
+    }
 }

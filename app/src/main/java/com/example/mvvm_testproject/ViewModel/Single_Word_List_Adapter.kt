@@ -1,17 +1,28 @@
 package com.example.mvvm_testproject.ViewModel
 
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.viewpager2.adapter.FragmentStateAdapter
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.mvvm_testproject.R
 
-class Single_Word_List_Adapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
+ class Single_Word_List_Adapter(
+    private val tabList: List<String>
+) : RecyclerView.Adapter<Single_Word_List_Adapter.ViewHolder>() {
 
-    private val tabTitles = listOf("所有", "學習中")
-
-    override fun getItemCount(): Int = tabTitles.size
-
-    override fun createFragment(position: Int): Fragment {
-        return AllSingleWordFragment.newInstance(tabTitles[position])
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val singleword: TextView = view.findViewById(R.id.SingleWord)
     }
 
-}
+     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+         val view = LayoutInflater.from(parent.context).inflate(R.layout.single_word_list, parent, false)
+         return  ViewHolder(view)
+     }
+
+     override fun getItemCount(): Int  = tabList.size
+
+     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+         holder.singleword.text = tabList[position]
+     }
+ }
