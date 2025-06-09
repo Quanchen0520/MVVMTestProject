@@ -5,14 +5,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mvvm_testproject.ViewModel.Adapter
 import com.example.mvvm_testproject.R
 import com.example.mvvm_testproject.ViewModel.Single_Word_List_Adapter
+import com.example.mvvm_testproject.ViewModel.WordViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var viewModel: WordViewModel
+    private lateinit var adapter: Adapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,10 +26,21 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val viewPager2 = findViewById<ViewPager2>(R.id.viewpager2)
-        val single_en = listOf("Apple", "Banana", "Watermelon")
-        val singe_cz = listOf("蘋果", "香蕉", "西瓜")
-        viewPager2.adapter = Adapter(single_en, singe_cz)
+
+        val recyclerView = findViewById<ViewPager2>(R.id.viewpager2)
+        viewModel = ViewModelProvider(this)[WordViewModel::class.java]
+
+        adapter = Adapter(
+            emptyList(),
+            onTranslateClick = { index -> viewModel.toggleTranslate(index) },
+            onPlayClick = { index -> viewModel.togglePlaying(index) }
+        )
+
+        recyclerView.adapter = adapter
+
+        viewModel.words.observe(this) { list ->
+            adapter.updateData(list)
+        }
 
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         val viewPager = findViewById<ViewPager2>(R.id.listViewPager)
